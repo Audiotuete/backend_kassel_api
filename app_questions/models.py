@@ -39,19 +39,27 @@ class Question(OrderedModel):
     if question_model_name in models_dict:
       UserAnswerModel = django_apps.get_model('app_user_answers', models_dict[question_model_name])
     
-    User = get_user_model()
-    # UserPollModel = django_apps.get_model('app_user_polls', 'UserPoll')
+    # User = get_user_model()
+    UserPoll = django_apps.get_model('app_user_polls', 'UserPoll')
 
     if self.pk == None:
       print('PK Is none')
       super(Question, self).save(*args, **kwargs)
 
-      all_users = User.objects.filter(currentPoll = self.poll)
+      # all_users = User.objects.filter(currentPoll = self.poll)
+
+      # user_answer_list = []    
+      # for a_user in all_users:
+      #   user_answer_list.append(UserAnswerModel(user = a_user, poll = self.poll, question = self))
+
+      # UserAnswerModel.objects.bulk_create(user_answer_list)
+
+      all_user_polls = UserPoll.objects.filter(poll = self.poll)
 
       user_answer_list = []    
-      for a_user in all_users:
-        user_answer_list.append(UserAnswerModel(user = a_user, poll = self.poll, question = self))
-
+      for user_poll in all_user_polls:
+        user_answer_list.append(UserAnswerModel(user_id = user_poll.user_id, poll_id = user_poll.poll_id, question = self))
+      
       UserAnswerModel.objects.bulk_create(user_answer_list)
 
 

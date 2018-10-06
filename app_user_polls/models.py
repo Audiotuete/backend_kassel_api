@@ -14,7 +14,6 @@ class UserPoll(models.Model):
   def __str__(self):
     return str(self.poll)
 
- 
   def save(self, *args, **kwargs):
     # If UserPoll doesn't already exist create it
     if not UserPoll.objects.filter(poll = self.poll, user = self.user).exists():
@@ -24,7 +23,8 @@ class UserPoll(models.Model):
 
       Question = django_apps.get_model('app_questions', 'Question')
 
-      print(Question.objects.filter(poll = self.poll))
+      Question.objects.filter(poll = self.poll)
+
 
     #   models_dict = {
     #     'QuestionOpen': 'UserAnswerOpen',
