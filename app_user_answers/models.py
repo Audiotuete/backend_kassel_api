@@ -15,20 +15,20 @@ class UserAnswer(models.Model):
     unique_together = ['user', 'question']
 
   def __str__(self):
-    return str(self.poll)
+    return str(self.question)
 
 class UserAnswerYesOrNo(UserAnswer):
   question = models.ForeignKey('app_questions.QuestionYesOrNo', on_delete=models.CASCADE )
-  question_value = models.IntegerField(default=-1, validators=[MaxValueValidator(2), MinValueValidator(0)])
-  question_note = models.TextField(max_length=250, null=True, blank=True)
+  answer_value = models.IntegerField(default=-1, validators=[MaxValueValidator(2), MinValueValidator(0)])
+  answer_note = models.TextField(max_length=250, null=True, blank=True)
 
 class UserAnswerOpen(UserAnswer):
   question = models.ForeignKey('app_questions.QuestionOpen', on_delete=models.CASCADE )
-  question_text = models.TextField(max_length=250, null=True, blank=True)
+  answer_text = models.TextField(max_length=250, null=True, blank=True)
 
 class UserAnswerMultiple(UserAnswer):
   question = models.ForeignKey('app_questions.QuestionMultiple', on_delete=models.CASCADE )
-  question_choice_key = models.IntegerField(default=-1, validators=[MinValueValidator(0)])
+  answer_choice_key = models.IntegerField(default=-1, validators=[MinValueValidator(-1), MaxValueValidator(3)])
  
 
 

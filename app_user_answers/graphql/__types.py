@@ -9,12 +9,9 @@ from app_questions.graphql.__types import QuestionMultipleType, QuestionOpenType
 #Models
 from ..models import UserAnswerMultiple, UserAnswerOpen, UserAnswerYesOrNo
 
-
-
 class BaseUserAnswerType(graphene.Interface):
   id = graphene.Int()
   status = graphene.Boolean()
-  submitted_by = graphene.Field(UserType)
   poll = graphene.Field(PollType)
 
 class UserAnswerMultipleType(DjangoObjectType):

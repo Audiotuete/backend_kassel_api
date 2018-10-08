@@ -16,49 +16,30 @@ class UserPoll(models.Model):
 
   def save(self, *args, **kwargs):
     # If UserPoll doesn't already exist create it
-    if not UserPoll.objects.filter(poll = self.poll, user = self.user).exists():
+    if not UserPoll.objects.filter(user = self.user, poll = self.poll).exists():
       print('Creating a new UserPoll ' + str(self.poll.pk))
       super(UserPoll, self).save(*args, **kwargs)
+      
     # # Create new UserAnswers for every Question in Poll
 
-      Question = django_apps.get_model('app_questions', 'Question')
+      models_dict = {
+        'QuestionOpen': 'UserAnswerOpen',
+        'QuestionYesOrNo': 'UserAnswerYesOrNo',
+        'QuestionMultiple': 'UserAnswerMultiple',
+      }
 
-      Question.objects.filter(poll = self.poll)
+      for key_model, value_model in models_dict.items():
 
+        UserAnswerModel = django_apps.get_model('app_user_answers', value_model)
+        QuestionModel = django_apps.get_model('app_questions', key_model)
 
-    #   models_dict = {
-    #     'QuestionOpen': 'UserAnswerOpen',
-    #     'QuestionYesOrNo': 'UserAnswerYesOrNo',
-    #     'QuestionMultiple': 'UserAnswerMultiple',
-    #   }
+        all_questions = QuestionModel.objects.filter(poll = self.poll)
 
-    #   for key_model, value_model in models_dict.items(): 
-    
-    #     QuestionModel = django_apps.get_model('app_questions', key_model)
-    #     UserAnswerModel = django_apps.get_model('app_user_answers', value_model)
+        user_answers_list = []
 
-    #     questions = QuestionModel.objects.filter(poll = self.currentPoll)
-    #     print(questions)
-    #     user_answers_list = []
-
-    #     for question in questions:
-    #       user_answers_list.append(UserAnswerModel(user = self, poll = self.currentPoll, question = question))
-    #     UserAnswerModel.objects.bulk_create(user_answers_list)
-
-    # elif self.check_if_poll_changed(self):
-
-    #   changing_user_answers = UserAnswerModel.objects.filter(user = self)
-
-    #   @atomic
-    #   def saves_user_answers(changing_user_answers):
-    #     for user_answer in changing_user_answers:
-    #       print('Poll for ' + user_answer.__class__.__name__ + ' changed from ' + user_answer.poll.poll_name + ' to ' + self.poll.poll_name)
-    #       user_answer.poll = self.poll
-    #       user_answer.save()
-      
-    #   saves_user_answers(changing_user_answers)
-
-    #   super(Question, self).save(*args, **kwargs)
+        for question in all_questions:
+            user_answers_list.append(UserAnswerModel(user = self.user, poll = self.poll, question = question))
+        UserAnswerModel.objects.bulk_create(user_answers_list)
 
     else:
       print('UserPolls are all in place')

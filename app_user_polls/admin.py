@@ -5,7 +5,7 @@ from .models import UserPoll
 class UserPollAdmin(admin.ModelAdmin):
   model = UserPoll
   list_display = ['user', 'poll', 'success_email']
-  actions = None
+  # actions = None
 
   def has_add_permission(self, request):
     return False

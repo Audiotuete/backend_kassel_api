@@ -4,6 +4,8 @@ from .models import Poll
 
 class PollAdmin(admin.ModelAdmin):
   model = Poll
+  list_display = ('id', 'poll_name')
+
   readonly_fields = ['poll_code',]
   # actions = None
 

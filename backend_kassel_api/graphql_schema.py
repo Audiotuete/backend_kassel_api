@@ -16,9 +16,9 @@ from app_polls.graphql.createPoll import CreatePoll
 
 from app_user_answers.graphql.allUserAnswers import AllUserAnswers
 
-# from app_user_answers.graphql.updateUserAnswerProblem import UpdateUserAnswerProblem
-# from app_user_answers.graphql.updateUserAnswerIdea import UpdateUserAnswerIdea
-# from app_user_answers.graphql.updateUserAnswerAction import UpdateUserAnswerAction
+from app_user_answers.graphql.updateUserAnswerMultiple import UpdateUserAnswerMultiple
+from app_user_answers.graphql.updateUserAnswerYesOrNo import UpdateUserAnswerYesOrNo
+from app_user_answers.graphql.updateUserAnswerOpen import UpdateUserAnswerOpen
 
 
 class Queries(
@@ -39,9 +39,9 @@ class Mutations(
   CreateUser,
   CreatePoll,
   JoinPoll,
-  # UpdateUserAnswerProblem,
-  # UpdateUserAnswerIdea,
-  # UpdateUserAnswerAction,
+  UpdateUserAnswerMultiple,
+  UpdateUserAnswerYesOrNo,
+  UpdateUserAnswerOpen,
 # -----------------------
   graphene.ObjectType
 ):

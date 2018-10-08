@@ -5,7 +5,7 @@ from .models import UserAnswerOpen, UserAnswerYesOrNo, UserAnswerMultiple
 
 class UserAnswerOpenAdmin(admin.ModelAdmin):
   model = UserAnswerOpen
-  list_display = ['user', 'poll', 'question']
+  list_display = ['user', 'poll', 'question', 'answer_text']
   actions = None
 
   def has_add_permission(self, request):
@@ -15,7 +15,7 @@ class UserAnswerOpenAdmin(admin.ModelAdmin):
 
 class UserAnswerYesOrNoAdmin(admin.ModelAdmin):
   model = UserAnswerYesOrNo
-  list_display = ['user', 'poll', 'question', 'question_value', 'question_note']
+  list_display = ['user', 'poll', 'question', 'answer_value', 'answer_note']
   actions = None
 
   def has_add_permission(self, request):
@@ -25,7 +25,7 @@ class UserAnswerYesOrNoAdmin(admin.ModelAdmin):
 
 class UserAnswerMultipleAdmin(admin.ModelAdmin):
   model = UserAnswerMultiple
-  list_display = ['user', 'poll', 'question']
+  list_display = ['user', 'poll', 'question', 'answer_choice_key']
   actions = None
 
   def has_add_permission(self, request):

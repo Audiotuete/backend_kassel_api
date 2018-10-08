@@ -7,7 +7,7 @@ from django.db.transaction import atomic
 from ordered_model.models import OrderedModel
 
 class Question(OrderedModel):
-  poll = models.ForeignKey('app_polls.Poll', on_delete=models.CASCADE, null=True)
+  poll = models.ForeignKey('app_polls.Poll', on_delete=models.CASCADE, verbose_name="Poll (not changeable after creation)")
   question_type = models.CharField(max_length=150, default='')
   question_text = models.TextField(max_length=250)
   # question_videolink = models.CharField(max_length=150, null=True, blank=True)
@@ -36,23 +36,17 @@ class Question(OrderedModel):
 
     # Check if question_model_name is not "Question" to allow ordering inside the Questions Admin
     # Because ordering inside Question Admin sets question_model_name = "Question".
-    if question_model_name in models_dict:
+    if question_model_name is 'Question':
+      UserAnswerModel = django_apps.get_model('app_user_answers', models_dict['Question' + self.question_type])
+    else:
       UserAnswerModel = django_apps.get_model('app_user_answers', models_dict[question_model_name])
-    
+
     # User = get_user_model()
     UserPoll = django_apps.get_model('app_user_polls', 'UserPoll')
 
     if self.pk == None:
       print('PK Is none')
       super(Question, self).save(*args, **kwargs)
-
-      # all_users = User.objects.filter(currentPoll = self.poll)
-
-      # user_answer_list = []    
-      # for a_user in all_users:
-      #   user_answer_list.append(UserAnswerModel(user = a_user, poll = self.poll, question = self))
-
-      # UserAnswerModel.objects.bulk_create(user_answer_list)
 
       all_user_polls = UserPoll.objects.filter(poll = self.poll)
 
@@ -62,21 +56,20 @@ class Question(OrderedModel):
       
       UserAnswerModel.objects.bulk_create(user_answer_list)
 
-
     elif self.check_if_poll_changed(self):
+      pass
+      # changing_user_answers = UserAnswerModel.objects.filter(question = self)
 
-      changing_user_answers = UserAnswerModel.objects.filter(question = self)
-
-      @atomic
-      def saves_user_answers(changing_user_answers):
-        for user_answer in changing_user_answers:
-          print('Poll for ' + user_answer.__class__.__name__ + ' changed from ' + user_answer.poll.poll_name + ' to ' + self.poll.poll_name)
-          user_answer.poll = self.poll
-          user_answer.save()
+      # @atomic
+      # def saves_user_answers(changing_user_answers):
+      #   for user_answer in changing_user_answers:
+      #     print('Poll for ' + user_answer.__class__.__name__ + ' changed from ' + user_answer.poll.poll_name + ' to ' + self.poll.poll_name)
+      #     user_answer.poll = self.poll
+      #     user_answer.save()
       
-      saves_user_answers(changing_user_answers)
+      # saves_user_answers(changing_user_answers)
 
-      super(Question, self).save(*args, **kwargs)
+      # super(Question, self).save(*args, **kwargs)
 
     else:
       print('Nothing really')

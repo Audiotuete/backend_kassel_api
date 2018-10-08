@@ -255,5 +255,6 @@ SOCIALACCOUNT_ADAPTER = 'backend_kassel_api.users.adapters.SocialAccountAdapter'
 # Your stuff...
 # ------------------------------------------------------------------------------
 CORS_ORIGIN_WHITELIST = (
+    'app.bewirken.org',
     'localhost:8080',
 )

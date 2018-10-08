@@ -13,27 +13,26 @@ class CreateUserMutation(graphene.Mutation):
 
   class Arguments:
     username = graphene.String(required=True)
-    email = graphene.String(required=True)
+    # email = graphene.String(required=True)
     password = graphene.String(required=True)
-    challengeCode = graphene.String(required=True)
+    pollId = graphene.ID(required=True)
 
-  def mutate(self, info, username, email, password, challengeCode):
+  def mutate(self, info, username, password, pollId):
 
     # valitdate Data username, email, password
 
-    Challenge = django_apps.get_model('app_challenges', 'Challenge')
-    match_challenge = Challenge.objects.get(challenge_code = challengeCode) 
+    Poll = django_apps.get_model('app_polls', 'Poll')
+    match_poll = Poll.objects.get(id = pollId) 
 
     user = User(
       username = username,
-      email = email,
-      currentChallenge = match_challenge
+      # email = email,
+      currentPoll = match_poll
     )
     user.set_password(password)
     user.save()
 
     return CreateUserMutation(user=user)
-
 
 class CreateUser(graphene.ObjectType):
   create_user = CreateUserMutation.Field()
