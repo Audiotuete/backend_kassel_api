@@ -45,7 +45,6 @@ class Question(OrderedModel):
     UserPoll = django_apps.get_model('app_user_polls', 'UserPoll')
 
     if self.pk == None:
-      print('PK Is none')
       super(Question, self).save(*args, **kwargs)
 
       all_user_polls = UserPoll.objects.filter(poll = self.poll)
@@ -56,7 +55,7 @@ class Question(OrderedModel):
       
       UserAnswerModel.objects.bulk_create(user_answer_list)
 
-    elif self.check_if_poll_changed(self):
+    elif not self.poll_changed(self):
       pass
       # changing_user_answers = UserAnswerModel.objects.filter(question = self)
 
@@ -72,19 +71,18 @@ class Question(OrderedModel):
       # super(Question, self).save(*args, **kwargs)
 
     else:
-      print('Nothing really')
       super(Question, self).save(*args, **kwargs)
 
     if not(self.question_type):
       self.question_type = question_model_name[8:]
       self.save()
 
-  def check_if_poll_changed(instance, *args, **kwargs):
+  def poll_changed(instance, *args, **kwargs):
     pre_save_poll_id = Question.objects.get(pk = instance.pk).poll_id
     if pre_save_poll_id == instance.poll_id:
-      return False
-    else:
       return True
+    else:
+      return False
 
 
 # To check if the the question moved to an other poll, we need to save the poll value before save inside "init" and compare it with the current poll.

@@ -17,19 +17,22 @@ class BaseUserAnswerType(graphene.Interface):
 class UserAnswerMultipleType(DjangoObjectType):
   question = graphene.Field(QuestionMultipleType)
   options = graphene.String()
-
+  answer_choice_key = graphene.Int()
   class Meta:
     model = UserAnswerMultiple
     interfaces = [ BaseUserAnswerType ]
 
 class UserAnswerOpenType(DjangoObjectType):
   question = graphene.Field(QuestionOpenType)
+  answer_text = graphene.String()
   class Meta:
     model = UserAnswerOpen
     interfaces = [ BaseUserAnswerType ]
 
 class UserAnswerYesOrNoType(DjangoObjectType):
   question = graphene.Field(QuestionYesOrNoType)
+  answer_value = graphene.Int()
+  answer_note = graphene.String()
   class Meta:
     model = UserAnswerYesOrNo
     interfaces = [ BaseUserAnswerType ]

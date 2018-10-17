@@ -23,7 +23,7 @@ class User(AbstractUser):
   def save(self, *args, **kwargs):
 
     # If User doesn't already exist create an (empty) UserPoll.
-    if self.pk is None or self.check_if_poll_changed(self):
+    if self.pk is None or not self.poll_changed(self):
       super(User, self).save(*args, **kwargs)
 
       UserPollModel = django_apps.get_model('app_user_polls', 'UserPoll')
@@ -33,11 +33,11 @@ class User(AbstractUser):
     else:
       super(User, self).save(*args, **kwargs)
 
-  def check_if_poll_changed(instance, *args, **kwargs):
+  def poll_changed(instance, *args, **kwargs):
     pre_save_poll_id = User.objects.get(pk = instance.pk).currentPoll_id
     if pre_save_poll_id == instance.currentPoll_id:
-      return False
-    else:
       return True
+    else:
+      return False
 
 

@@ -64,6 +64,5 @@ INSTALLED_APPS += ['django_extensions']  # noqa F405
 # Your stuff...
 # ------------------------------------------------------------------------------
 CORS_ORIGIN_WHITELIST = (
-    'app.bewirken.org',
     'localhost:8080',
 )
