@@ -19,7 +19,14 @@ class CreateUserMutation(graphene.Mutation):
 
   def mutate(self, info, username, password, pollId):
 
-    # valitdate Data username, email, password
+    username_lowercase = username.lower()
+
+    if len(username) < 3:
+      raise Exception('Username must have at least 3 characters!')
+    if len(password) < 8:
+      raise Exception('The password must be at least 8 characters long!')
+    if User.objects.filter(username = username_lowercase):
+      raise Exception('Username already exists!')
 
     Poll = django_apps.get_model('app_polls', 'Poll')
     match_poll = Poll.objects.get(id = pollId) 
