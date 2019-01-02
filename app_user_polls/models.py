@@ -4,7 +4,7 @@ from django.apps import apps as django_apps
 
 
 class UserPoll(models.Model):
-  poll = models.ForeignKey('app_polls.Poll', on_delete=models.CASCADE)
+  poll = models.ForeignKey('app_polls.Poll', on_delete=models.CASCADE, null=True)
   user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   success_email = models.EmailField()
 

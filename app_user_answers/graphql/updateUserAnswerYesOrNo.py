@@ -37,7 +37,7 @@ class UpdateUserAnswerYesOrNoMutation(graphene.Mutation):
     try:
       open_answer = UserAnswerYesOrNo.objects.get(user=current_user, question_id=question_id, poll_id = poll_id)
     except:
-      raise Exception('Invalid Link!')
+      raise Exception('Invalid Link! Queried entity does not exist.')
 
     open_answer.count_touched += 1
 

@@ -13,7 +13,7 @@ def update_site_forward(apps, schema_editor):
     Site.objects.update_or_create(
         id=settings.SITE_ID,
         defaults={
-            "domain": "bwirken.org",
+            "domain": "leidenschaftlich-fuehren.de/",
             "name": "backend_kassel_api",
         },
     )

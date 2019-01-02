@@ -66,3 +66,5 @@ INSTALLED_APPS += ['django_extensions']  # noqa F405
 CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
 )
+# TOKEN_KEY = env('TOKEN_KEY')
+USER_PASSWORD = env('USER_PASSWORD')

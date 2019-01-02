@@ -1,5 +1,5 @@
 www.{$DOMAIN_NAME} {
-    redir https://bwirken.org
+    redir https://leidenschaftlich-fuehren.de/
 }
 
 {$DOMAIN_NAME} {
