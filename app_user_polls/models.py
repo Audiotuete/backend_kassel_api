@@ -6,7 +6,7 @@ from django.apps import apps as django_apps
 class UserPoll(models.Model):
   poll = models.ForeignKey('app_polls.Poll', on_delete=models.CASCADE, null=True)
   user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-  success_email = models.EmailField()
+  success_email = models.EmailField(blank=True, null=True, default='')
 
   class Meta:
     unique_together = ['user', 'poll']
@@ -42,4 +42,4 @@ class UserPoll(models.Model):
         UserAnswerModel.objects.bulk_create(user_answers_list)
 
     else:
-      print('UserPolls are all in place')
+      super(UserPoll, self).save(*args, **kwargs)
