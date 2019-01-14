@@ -1,8 +1,7 @@
 from django.apps import apps as django_apps
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
-from django.db.transaction import atomic
+# from django.db.transaction import atomic
 
 from ordered_model.models import OrderedModel
 
@@ -41,7 +40,6 @@ class Question(OrderedModel):
     else:
       UserAnswerModel = django_apps.get_model('app_user_answers', models_dict[question_model_name])
 
-    # User = get_user_model()
     UserPoll = django_apps.get_model('app_user_polls', 'UserPoll')
 
     if self.pk == None:
@@ -98,7 +96,7 @@ class QuestionOpen(Question):
   pass
 
 class QuestionMultiple(Question):
-  options = ArrayField(models.CharField(max_length=150, blank=True), default=list, null=True, size=4)
+  options = ArrayField(models.CharField(max_length=150, blank=True), default=list, null=True, size=6)
 
  
 

@@ -21,12 +21,12 @@ class UpdateUserAnswerMultipleMutation(graphene.Mutation):
   count_touched = graphene.Int()
 
   status = graphene.Boolean()
-  answer_choice_key = graphene.Int()
+  answer_choice_key = graphene.List(graphene.Int)
   pass
   
   class Arguments:
     question_id = graphene.ID(required=True)
-    answer_choice_key = graphene.Int()
+    answer_choice_key = graphene.List(graphene.Int)
 
   @login_required
   def mutate(self, info, question_id, answer_choice_key):
@@ -40,12 +40,12 @@ class UpdateUserAnswerMultipleMutation(graphene.Mutation):
 
     open_answer.count_touched += 1
 
-    if answer_choice_key > len(open_answer.question.options) -1  or answer_choice_key < -1:
+    if len(answer_choice_key) > len(open_answer.question.options) or answer_choice_key <= 0:
       raise Exception('Choice not available')
 
     open_answer.answer_choice_key = answer_choice_key
 
-    if answer_choice_key > -1:
+    if len(answer_choice_key) > 0:
       open_answer.status = True
     else:
       open_answer.status = False      

@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.postgres.fields import ArrayField
+
 
 class UserAnswer(models.Model):
   poll = models.ForeignKey('app_polls.Poll', default=1, on_delete=models.CASCADE)
@@ -28,7 +30,8 @@ class UserAnswerOpen(UserAnswer):
 
 class UserAnswerMultiple(UserAnswer):
   question = models.ForeignKey('app_questions.QuestionMultiple', on_delete=models.CASCADE )
-  answer_choice_key = models.IntegerField(default=-1, validators=[MinValueValidator(-1), MaxValueValidator(3)])
+  answer_choice_key = ArrayField(models.IntegerField(blank=True), default=list, null=True, size=6)
+
  
 
 

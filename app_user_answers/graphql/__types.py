@@ -17,7 +17,7 @@ class BaseUserAnswerType(graphene.Interface):
 class UserAnswerMultipleType(DjangoObjectType):
   question = graphene.Field(QuestionMultipleType)
   options = graphene.String()
-  answer_choice_key = graphene.Int()
+  answer_choice_key = graphene.List(graphene.String)
   class Meta:
     model = UserAnswerMultiple
     interfaces = [ BaseUserAnswerType ]
