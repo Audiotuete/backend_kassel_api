@@ -30,7 +30,7 @@ class UserAnswerOpen(UserAnswer):
 
 class UserAnswerMultiple(UserAnswer):
   question = models.ForeignKey('app_questions.QuestionMultiple', on_delete=models.CASCADE )
-  answer_choice_key = ArrayField(models.IntegerField(blank=True), default=list, null=True, size=6)
+  answer_choice_key = ArrayField(models.IntegerField(blank=True), default=list, null=True, blank=True, size=6)
 
  
 

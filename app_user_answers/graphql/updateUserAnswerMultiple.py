@@ -12,6 +12,9 @@ from app_polls.graphql.__types import PollType
 from ..models import UserAnswerMultiple
 
 
+class AnswerChoiceKeyInput(graphene.InputObjectType):
+  keys = graphene.List(graphene.Int)
+
 class UpdateUserAnswerMultipleMutation(graphene.Mutation):
   # poll = graphene.Field(UserType)
   question = graphene.Field(QuestionMultipleType)
@@ -40,7 +43,7 @@ class UpdateUserAnswerMultipleMutation(graphene.Mutation):
 
     open_answer.count_touched += 1
 
-    if len(answer_choice_key) > len(open_answer.question.options) or answer_choice_key <= 0:
+    if len(answer_choice_key) > len(open_answer.question.options) or len(answer_choice_key) <= 0:
       raise Exception('Choice not available')
 
     open_answer.answer_choice_key = answer_choice_key
