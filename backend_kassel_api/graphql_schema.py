@@ -6,8 +6,7 @@ from app_questions.graphql.__types import QuestionMultipleType, QuestionOpenType
 from backend_kassel_api.users.graphql.currentUser import CurrentUser
 from backend_kassel_api.users.graphql.updateUser import UpdateUser
 from backend_kassel_api.users.graphql.createUser import CreateUser
-
-from app_challenges.graphql.aChallenge import AChallenge
+from backend_kassel_api.users.graphql.verifyEmail import VerifyEmail
 
 # from app_polls.graphql.aPoll import APoll
 # from app_polls.graphql.allPolls import AllPolls
@@ -23,7 +22,6 @@ from app_user_answers.graphql.updateUserAnswerOpen import UpdateUserAnswerOpen
 
 class Queries(
   CurrentUser,
-  AChallenge,
   # APoll,
   # AllUsers,
   # AllPolls,
@@ -38,6 +36,7 @@ class Queries(
 class Mutations(
   CreateUser,
   UpdateUser,
+  VerifyEmail,
   CreatePoll,
   JoinPoll,
   UpdateUserAnswerMultiple,
