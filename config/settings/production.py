@@ -189,7 +189,9 @@ LOGGING = {
 # Your stuff...
 # ------------------------------------------------------------------------------
 CORS_ORIGIN_WHITELIST = (
-    'localhost:8080','umfrage.bewirken.org',
+    #'localhost:8080',
+    'schule.bewirken.org', 
+    'prototype.freecakecamp.de',
 )
 
 # TOKEN_KEY = env('TOKEN_KEY')

@@ -74,6 +74,7 @@ THIRD_PARTY_APPS = [
     'graphene_django',
     'corsheaders',
     'ordered_model',
+    'import_export',
 
 ]
 LOCAL_APPS = [
@@ -83,6 +84,7 @@ LOCAL_APPS = [
     'app_user_answers.apps.AppUserAnswersConfig',
     'app_user_polls.apps.AppUserPollsConfig',
     'app_questions.apps.AppQuestionsConfig',
+
 
     # Your stuff: custom apps go here
 ]

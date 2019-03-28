@@ -23,3 +23,7 @@ django-filter==1.1.0
 django-graphql-jwt==0.1.12
 django-cors-headers==2.4.0
 
+# Django Import-Export
+# ------------------------------------------------------------------------------
+django-import-export==1.2.0
+

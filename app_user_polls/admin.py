@@ -1,8 +1,9 @@
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
 
 from .models import UserPoll
 
-class UserPollAdmin(admin.ModelAdmin):
+class UserPollAdmin(ImportExportModelAdmin):
   model = UserPoll
   list_display = ['user', 'poll', 'success_email']
   # actions = None
