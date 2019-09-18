@@ -6,7 +6,7 @@ from import_export.admin import ImportExportModelAdmin
 
 class UserAnswerOpenAdmin(ImportExportModelAdmin):
   model = UserAnswerOpen
-  list_display = ['user', 'poll', 'question', 'answer_text', 'status']
+  list_display = ['user', 'poll', 'question', 'answer_text', 'status', 'count_touched']
   actions = None
 
   def has_add_permission(self, request):
@@ -16,7 +16,7 @@ class UserAnswerOpenAdmin(ImportExportModelAdmin):
 
 class UserAnswerYesOrNoAdmin(ImportExportModelAdmin):
   model = UserAnswerYesOrNo
-  list_display = ['user', 'poll', 'question', 'answer_value', 'answer_note', 'status']
+  list_display = ['user', 'poll', 'question', 'answer_value', 'answer_note', 'status', 'count_touched']
   actions = None
 
   def has_add_permission(self, request):
@@ -26,7 +26,7 @@ class UserAnswerYesOrNoAdmin(ImportExportModelAdmin):
 
 class UserAnswerMultipleAdmin(ImportExportModelAdmin):
   model = UserAnswerMultiple
-  list_display = ['user', 'poll', 'question', 'answer_choice_key', 'status']
+  list_display = ['user', 'poll', 'question', 'answer_choice_key', 'status', 'count_touched']
   actions = None
 
   def has_add_permission(self, request):

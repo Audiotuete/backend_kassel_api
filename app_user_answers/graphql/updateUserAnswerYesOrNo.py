@@ -41,24 +41,27 @@ class UpdateUserAnswerYesOrNoMutation(graphene.Mutation):
 
     open_answer.count_touched += 1
 
-    open_answer.answer_note = answer_note
-
-    if answer_note:
-      open_answer.answer_value = 2
-    elif answer_value > 1  or answer_value < -1:
-      raise Exception('Choice not available')
-    else: 
-      open_answer.answer_value = answer_value
-
-    if answer_value > -1:
-      open_answer.status = True
+    if not answer_note and answer_value == -1:
+      open_answer.save()
     else:
-      open_answer.status = False      
-    
-    if open_answer.first_touched == None:
-      open_answer.first_touched = datetime.datetime.now()
+      open_answer.answer_note = answer_note
 
-    open_answer.save()
+      if answer_note:
+        open_answer.answer_value = 2
+      elif answer_value > 1  or answer_value < -1:
+        raise Exception('Choice not available')
+      else: 
+        open_answer.answer_value = answer_value
+
+      if answer_value > -1:
+        open_answer.status = True
+      else:
+        open_answer.status = False      
+      
+      if open_answer.first_touched == None:
+        open_answer.first_touched = datetime.datetime.now()
+
+      open_answer.save()
 
     return UpdateUserAnswerYesOrNoMutation(
       poll = open_answer.poll,

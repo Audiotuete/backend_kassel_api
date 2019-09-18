@@ -44,19 +44,20 @@ class UpdateUserAnswerMultipleMutation(graphene.Mutation):
     open_answer.count_touched += 1
 
     if len(answer_choice_key) > len(open_answer.question.options) or len(answer_choice_key) <= 0:
-      raise Exception('Choice not available')
-
-    open_answer.answer_choice_key = answer_choice_key
-
-    if len(answer_choice_key) > 0:
-      open_answer.status = True
+        open_answer.save()
+        # raise Exception('Choice not available')
     else:
-      open_answer.status = False      
-    
-    if open_answer.first_touched == None:
-      open_answer.first_touched = datetime.datetime.now()
+      open_answer.answer_choice_key = answer_choice_key
 
-    open_answer.save()
+      if len(answer_choice_key) > 0:
+        open_answer.status = True
+      else:
+        open_answer.status = False      
+      
+      if open_answer.first_touched == None:
+        open_answer.first_touched = datetime.datetime.now()
+
+      open_answer.save()
 
     return UpdateUserAnswerMultipleMutation(
       poll = open_answer.poll,

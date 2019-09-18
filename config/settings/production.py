@@ -189,8 +189,11 @@ LOGGING = {
 # Your stuff...
 # ------------------------------------------------------------------------------
 CORS_ORIGIN_WHITELIST = (
-    #'localhost:8080',
-    'schule.bewirken.org', 
+    'localhost:8080',
+    'schule.bewirken.org',
+    'umfrage.bewirken.org',
+    'feedback.bewirken.org',    
+    'erkunden.bewirken.org',    
     'prototype.freecakecamp.de',
 )
 

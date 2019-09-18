@@ -14,18 +14,12 @@ class JoinPollMutation(graphene.Mutation):
   poll = graphene.Field(PollType)
 
   class Arguments:
-    pollCode = graphene.String(required=True)
+    pollId = graphene.ID(required=True)
   
   @login_required
-  def mutate(self, info, pollCode):
-    
-    #Find correct Poll inside correct Challenge
-    Challenge = django_apps.get_model('app_challenges', 'Challenge')
+  def mutate(self, info, pollId):
 
-    theUser = info.context.user
-    theChallenge = info.context.user.currentChallenge
-
-    poll_to_join = Poll.objects.get(poll_code = pollCode, challenge = theChallenge)
+    poll_to_join = Poll.objects.get(id = pollId)
 
     #Connect user to poll
     theUser = info.context.user

@@ -17,7 +17,8 @@ class UserPoll(models.Model):
   def save(self, *args, **kwargs):
     # If UserPoll doesn't already exist create it
     if not UserPoll.objects.filter(user = self.user, poll = self.poll).exists():
-      print('Creating a new UserPoll ' + str(self.poll.pk))
+
+      # print('Creating a new UserPoll ' + str(self.poll.pk))
       super(UserPoll, self).save(*args, **kwargs)
       
     # # Create new UserAnswers for every Question in Poll
@@ -41,5 +42,5 @@ class UserPoll(models.Model):
             user_answers_list.append(UserAnswerModel(user = self.user, poll = self.poll, question = question))
         UserAnswerModel.objects.bulk_create(user_answers_list)
 
-    else:
-      super(UserPoll, self).save(*args, **kwargs)
+    # else:
+    #   print("Doing nothing")

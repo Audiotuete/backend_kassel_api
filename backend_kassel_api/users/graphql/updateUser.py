@@ -27,7 +27,7 @@ class UpdateUserMutation(graphene.Mutation):
     current_user.email = email
     current_user.save()
 
-    subject = 'Email-Adresse für Vorder Westen Gewinnspiel bestätigen!'
+    subject = 'Email-Adresse bestätigen!'
     html_message = render_to_string('email_confirmation.html', {'activation_key': current_user.activation_key})
     plain_message = strip_tags(html_message)
     from_email = 'noreply@bewirken.org'

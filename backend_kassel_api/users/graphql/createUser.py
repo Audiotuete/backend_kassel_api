@@ -17,8 +17,11 @@ class CreateUserMutation(graphene.Mutation):
     # email = graphene.String(required=True)
     # password = graphene.String(required=True)
     pollId = graphene.ID(required=True)
+    browserInfo = graphene.String(required=True)
+    osInfo = graphene.String(required=True)
 
-  def mutate(self, info, pollId):
+
+  def mutate(self, info, pollId, browserInfo, osInfo):
 
     # if len(username) < 3:
     #   raise Exception('Username must have at least 3 characters!')
@@ -38,7 +41,9 @@ class CreateUserMutation(graphene.Mutation):
     user = User(
       username = generated_username,
       # email = email,
-      currentPoll = match_poll
+      currentPoll = match_poll,
+      browserInfo = browserInfo,
+      osInfo = osInfo,
     )
     user.set_password(settings.USER_PASSWORD)
     user.save()

@@ -22,5 +22,5 @@ class UserAdmin(auth_admin.UserAdmin):
     }),
   )
   fieldsets = (('User', {'fields': ('name',)}),) + CUSTOM_USER_FIELDS + auth_admin.UserAdmin.fieldsets
-  list_display = ['username', 'currentPoll', 'is_superuser', 'date_joined', 'activation_key' ]
+  list_display = ['username', 'currentPoll', 'is_superuser', 'date_joined', 'browserInfo', 'osInfo' ]
   search_fields = ['name',]

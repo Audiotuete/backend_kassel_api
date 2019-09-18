@@ -39,9 +39,11 @@ class UpdateUserAnswerOpenMutation(graphene.Mutation):
       raise Exception('Invalid Link!')
 
     open_answer.count_touched += 1
-    open_answer.answer_text = answer_text
 
     if answer_text:
+      open_answer.answer_text = answer_text
+      open_answer.status = True
+    elif open_answer.answer_text:
       open_answer.status = True
     else:
       open_answer.status = False      
