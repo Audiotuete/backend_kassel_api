@@ -42,5 +42,6 @@ class UserPoll(models.Model):
             user_answers_list.append(UserAnswerModel(user = self.user, poll = self.poll, question = question))
         UserAnswerModel.objects.bulk_create(user_answers_list)
 
-    # else:
+    else:
+      super(UserPoll, self).save(*args, **kwargs)
     #   print("Doing nothing")

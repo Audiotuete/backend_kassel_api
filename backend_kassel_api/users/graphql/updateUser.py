@@ -27,8 +27,20 @@ class UpdateUserMutation(graphene.Mutation):
     current_user.email = email
     current_user.save()
 
-    subject = 'Email-Adresse bestätigen!'
-    html_message = render_to_string('email_confirmation.html', {'activation_key': current_user.activation_key})
+    
+    # TODO CONDITIONAL LOGIC FOR DIFFERENT POOLS
+    print(current_user.currentPoll.__str__())
+
+    if current_user.currentPoll.__str__() == "DTF Stuttgart":
+      print(current_user.currentPoll.__str__())
+      subject = 'EMail-Adresse für DTF Stuttgart Umfrage bestätigen!'
+      html_message = render_to_string('email_confirmation_dtf.html', {'activation_key': current_user.activation_key})
+    else:
+      print("Dummy")
+      subject = 'Email-Adresse bestätigen!'
+      html_message = render_to_string('email_confirmation.html', {'activation_key': current_user.activation_key})
+
+    # ---
     plain_message = strip_tags(html_message)
     from_email = 'noreply@bewirken.org'
     to = email

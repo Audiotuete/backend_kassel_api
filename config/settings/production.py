@@ -193,8 +193,11 @@ CORS_ORIGIN_WHITELIST = (
     'schule.bewirken.org',
     'umfrage.bewirken.org',
     'feedback.bewirken.org',    
+    'feed.bewirken.org', 
     'erkunden.bewirken.org',    
+    'dtf.bewirken.org',    
     'prototype.freecakecamp.de',
+    
 )
 
 # TOKEN_KEY = env('TOKEN_KEY')

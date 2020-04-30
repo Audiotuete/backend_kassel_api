@@ -14,14 +14,14 @@ class VerifyEmailMutation(graphene.Mutation):
     activation_key = graphene.String(required=True)
 
   def mutate(self, info, activation_key):
-
     User = get_user_model()
     pending_user = User.objects.get(activation_key = activation_key)
-
     if pending_user.email:
       UserPoll = django_apps.get_model('app_user_polls', 'UserPoll')
       match_user_poll = UserPoll.objects.get(user = pending_user)
+
       match_user_poll.success_email = pending_user.email
+      
       match_user_poll.save()
       success = True
     else:
